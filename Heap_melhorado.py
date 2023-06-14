@@ -21,36 +21,38 @@ def generateRand(array, tamanho):
     
     array.extend(numeros_gerados)
 
-def mergeSort(array, inicio=0, fim=None):
-    if fim is None:
-        fim = len(array)
-    if fim - inicio > 1:
-        meio = (fim + inicio) // 2
-        mergeSort(array, inicio, meio)
-        mergeSort(array, meio, fim)
-        merge(array, inicio, meio, fim)
+# Função para ordenar
 
-def merge(array, inicio, meio, fim):
-    left = array[inicio:meio]
-    right = array[meio:fim]
-    top_left, top_right = 0, 0
-    for k in range(inicio, fim):
-        if top_left >= len(left):
-            array[k] = right[top_right]
-            top_right += 1
-        elif top_right >= len(right):
-            array[k] = left[top_left]
-            top_left += 1
-        elif left[top_left] < right[top_right]: 
-            array[k] = left[top_left]
-            top_left += 1
-        else: 
-            array[k] = right[top_right]
-            top_right += 1
+def heap_sort_iterativo(arr):
+    n = len(arr)
+
+    # Construir o heap máximo
+    for i in range(n // 2 - 1, -1, -1):
+        heapfy(arr, n, i)
+
+    # Extrair elementos do heap um por um
+    for i in range(n - 1, 0, -1):
+        arr[i], arr[0] = arr[0], arr[i]  # Troca
+        heapfy(arr, i, 0)
+
+def heapfy(arr, n, i):
+    maior = i
+    esquerda = 2 * i + 1
+    direita = 2 * i + 2
+
+    if esquerda < n and arr[esquerda] > arr[maior]:
+        maior = esquerda
+
+    if direita < n and arr[direita] > arr[maior]:
+        maior = direita
+
+    if maior != i:
+        arr[i], arr[maior] = arr[maior], arr[i]  # Troca
+        heapfy(arr, n, maior) 
 
 # Início do programa
 num_execucoes = 5
-tamanhos_array = [TAMANHO_VETOR_1000, TAMANHO_VETOR_10000, TAMANHO_VETOR_50000, TAMANHO_VETOR_100000, TAMANHO_VETOR_500000, TAMANHO_VETOR_1000000]
+tamanhos_array = [1000, 10000, 50000, 100000, 500000, 1000000]
 
 tempos_execucao_total = []
 
@@ -62,7 +64,7 @@ for tamanho in tamanhos_array:
         generateRand(lista, tamanho)
 
         inicio = time.time()
-        mergeSort(lista)
+        heap_sort_iterativo(lista)
         fim = time.time()
 
         tempo_execucao = fim - inicio
@@ -72,18 +74,16 @@ for tamanho in tamanhos_array:
     tempos_execucao_total.append(tempo_medio_execucao)
 
     tempo_formatado = datetime.timedelta(seconds=tempo_medio_execucao)
-    with open("resultados_merge.txt", "a") as arquivo:
+    with open("resultados_heap_melhorado.txt", "a") as arquivo:
         arquivo.write(f"Tamanho do array: {tamanho}\n")
-        arquivo.write(f"Tempo médio de execução do MergeSort: {tempo_formatado}\n")
+        arquivo.write(f"Tempo médio de execução do HeapSortInterativo: {tempo_formatado}\n")
         arquivo.write("\n")
+        os.startfile("resultados_heap_melhorado.txt")
 
-os.startfile("resultados_heap.txt")
 # Plotar o gráfico de linhas
 plt.plot(tamanhos_array, tempos_execucao_total, marker='o')
 plt.xlabel('Tamanho do Array')
 plt.ylabel('Tempo Médio de Execução (segundos)')
-plt.title('Desempenho do Merge Sort')
+plt.title('Desempenho do HeapSortInterativo')
 plt.grid(True)
 plt.show()
-
-os.startfile("resultados_heap.txt")

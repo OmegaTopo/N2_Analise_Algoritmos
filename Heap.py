@@ -2,6 +2,7 @@ import random
 import time
 import datetime
 import os
+import matplotlib.pyplot as plt
 
 # Constantes de tamanho de array
 TAMANHO_VETOR_1000 = 1000
@@ -54,26 +55,37 @@ def heapSort(arr):
 num_execucoes = 5
 tamanhos_array = [TAMANHO_VETOR_1000, TAMANHO_VETOR_10000, TAMANHO_VETOR_50000, TAMANHO_VETOR_100000, TAMANHO_VETOR_500000, TAMANHO_VETOR_1000000]
 
-with open("resultados.txt", "w") as arquivo:
-    for tamanho in tamanhos_array:
-        tempos_execucao = []
+tempos_execucao_total = []
 
-        for _ in range(num_execucoes):
-            lista = []
-            generateRand(lista, tamanho)
+for tamanho in tamanhos_array:
+    tempos_execucao = []
 
-            inicio = time.time()
-            heapSort(lista)
-            fim = time.time()
+    for _ in range(num_execucoes):
+        lista = []
+        generateRand(lista, tamanho)
 
-            tempo_execucao = fim - inicio
-            tempos_execucao.append(tempo_execucao)
+        inicio = time.time()
+        heapSort(lista)
+        fim = time.time()
 
-        tempo_medio_execucao = sum(tempos_execucao) / num_execucoes
+        tempo_execucao = fim - inicio
+        tempos_execucao.append(tempo_execucao)
 
-        tempo_formatado = datetime.timedelta(seconds=tempo_medio_execucao)
+    tempo_medio_execucao = sum(tempos_execucao) / num_execucoes
+    tempos_execucao_total.append(tempo_medio_execucao)
+
+    tempo_formatado = datetime.timedelta(seconds=tempo_medio_execucao)
+    with open("resultados_heap.txt", "a") as arquivo:
         arquivo.write(f"Tamanho do array: {tamanho}\n")
         arquivo.write(f"Tempo médio de execução do HeapSort: {tempo_formatado}\n")
         arquivo.write("\n")
 
-os.startfile("resultados.txt")
+# Plotar o gráfico de linhas
+plt.plot(tamanhos_array, tempos_execucao_total, marker='o')
+plt.xlabel('Tamanho do Array')
+plt.ylabel('Tempo Médio de Execução (segundos)')
+plt.title('Desempenho do HeapSort')
+plt.grid(True)
+plt.show()
+
+os.startfile("resultados_heap.txt")

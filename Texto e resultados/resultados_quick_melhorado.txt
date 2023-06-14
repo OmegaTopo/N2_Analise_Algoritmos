@@ -1,0 +1,18 @@
+Tamanho do array: 1000
+Tempo médio de execução do QuickSortRandomizado: 0:00:00.000942
+
+Tamanho do array: 10000
+Tempo médio de execução do QuickSortRandomizado: 0:00:00.013493
+
+Tamanho do array: 50000
+Tempo médio de execução do QuickSortRandomizado: 0:00:00.079565
+
+Tamanho do array: 100000
+Tempo médio de execução do QuickSortRandomizado: 0:00:00.181781
+
+Tamanho do array: 500000
+Tempo médio de execução do QuickSortRandomizado: 0:00:01.208026
+
+Tamanho do array: 1000000
+Tempo médio de execução do QuickSortRandomizado: 0:00:02.933863
+

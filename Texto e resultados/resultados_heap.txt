@@ -1,0 +1,18 @@
+Tamanho do array: 1000
+Tempo médio de execução do HeapSort: 0:00:00.001030
+
+Tamanho do array: 10000
+Tempo médio de execução do HeapSort: 0:00:00.021261
+
+Tamanho do array: 50000
+Tempo médio de execução do HeapSort: 0:00:00.128631
+
+Tamanho do array: 100000
+Tempo médio de execução do HeapSort: 0:00:00.278251
+
+Tamanho do array: 500000
+Tempo médio de execução do HeapSort: 0:00:01.873694
+
+Tamanho do array: 1000000
+Tempo médio de execução do HeapSort: 0:00:05.485806
+

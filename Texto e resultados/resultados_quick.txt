@@ -1,0 +1,3 @@
+Tamanho do array: 1000
+Tempo médio de execução do QuickSort: 0:00:00.011067
+

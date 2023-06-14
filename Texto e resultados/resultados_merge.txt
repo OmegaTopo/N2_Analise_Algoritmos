@@ -1,0 +1,18 @@
+Tamanho do array: 1000
+Tempo médio de execução do MergeSort: 0:00:00.001146
+
+Tamanho do array: 10000
+Tempo médio de execução do MergeSort: 0:00:00.012888
+
+Tamanho do array: 50000
+Tempo médio de execução do MergeSort: 0:00:00.079276
+
+Tamanho do array: 100000
+Tempo médio de execução do MergeSort: 0:00:00.181716
+
+Tamanho do array: 500000
+Tempo médio de execução do MergeSort: 0:00:01.582268
+
+Tamanho do array: 1000000
+Tempo médio de execução do MergeSort: 0:00:04.875262
+

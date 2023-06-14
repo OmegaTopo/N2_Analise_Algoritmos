@@ -21,32 +21,52 @@ def generateRand(array, tamanho):
     
     array.extend(numeros_gerados)
 
-def mergeSort(array, inicio=0, fim=None):
-    if fim is None:
-        fim = len(array)
-    if fim - inicio > 1:
-        meio = (fim + inicio) // 2
-        mergeSort(array, inicio, meio)
-        mergeSort(array, meio, fim)
-        merge(array, inicio, meio, fim)
+def merge_sort_hibrido(arr):
+    if len(arr) <= 16:
+        insertion_sort(arr)
+    else:
+        meio = len(arr) // 2
+        esquerda = arr[:meio]
+        direita = arr[meio:]
 
-def merge(array, inicio, meio, fim):
-    left = array[inicio:meio]
-    right = array[meio:fim]
-    top_left, top_right = 0, 0
-    for k in range(inicio, fim):
-        if top_left >= len(left):
-            array[k] = right[top_right]
-            top_right += 1
-        elif top_right >= len(right):
-            array[k] = left[top_left]
-            top_left += 1
-        elif left[top_left] < right[top_right]: 
-            array[k] = left[top_left]
-            top_left += 1
-        else: 
-            array[k] = right[top_right]
-            top_right += 1
+        merge_sort_hibrido(esquerda)
+        merge_sort_hibrido(direita)
+
+        merge(arr, esquerda, direita)
+
+def merge(arr, esquerda, direita):
+    i = j = k = 0
+
+    while i < len(esquerda) and j < len(direita):
+        if esquerda[i] < direita[j]:
+            arr[k] = esquerda[i]
+            i += 1
+        else:
+            arr[k] = direita[j]
+            j += 1
+        k += 1
+
+    while i < len(esquerda):
+        arr[k] = esquerda[i]
+        i += 1
+        k += 1
+
+    while j < len(direita):
+        arr[k] = direita[j]
+        j += 1
+        k += 1
+
+def insertion_sort(arr):
+    for i in range(1, len(arr)):
+        chave = arr[i]
+        j = i - 1
+
+        while j >= 0 and arr[j] > chave:
+            arr[j + 1] = arr[j]
+            j -= 1
+
+        arr[j + 1] = chave
+
 
 # Início do programa
 num_execucoes = 5
@@ -62,7 +82,7 @@ for tamanho in tamanhos_array:
         generateRand(lista, tamanho)
 
         inicio = time.time()
-        mergeSort(lista)
+        merge_sort_hibrido(lista)
         fim = time.time()
 
         tempo_execucao = fim - inicio
@@ -72,18 +92,17 @@ for tamanho in tamanhos_array:
     tempos_execucao_total.append(tempo_medio_execucao)
 
     tempo_formatado = datetime.timedelta(seconds=tempo_medio_execucao)
-    with open("resultados_merge.txt", "a") as arquivo:
+    with open("resultados_merge_melhorado.txt", "a") as arquivo:
         arquivo.write(f"Tamanho do array: {tamanho}\n")
-        arquivo.write(f"Tempo médio de execução do MergeSort: {tempo_formatado}\n")
+        arquivo.write(f"Tempo médio de execução do MergeSortHibrido: {tempo_formatado}\n")
         arquivo.write("\n")
 
-os.startfile("resultados_heap.txt")
 # Plotar o gráfico de linhas
 plt.plot(tamanhos_array, tempos_execucao_total, marker='o')
 plt.xlabel('Tamanho do Array')
 plt.ylabel('Tempo Médio de Execução (segundos)')
-plt.title('Desempenho do Merge Sort')
+plt.title('Desempenho do Merge Sort Híbrido')
 plt.grid(True)
 plt.show()
 
-os.startfile("resultados_heap.txt")
+os.startfile("resultados_merge_melhorado.txt")
