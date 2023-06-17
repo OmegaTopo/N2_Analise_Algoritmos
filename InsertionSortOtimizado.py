@@ -8,10 +8,8 @@ def insertion_sort(arr):
         j = i - 1
 
         while j >= 0 and arr[j] > key:
-            arr[j + 1] = arr[j]
+            arr[j], arr[j + 1] = arr[j + 1], arr[j]
             j -= 1
-
-        arr[j + 1] = key
 
     return arr
 
@@ -49,3 +47,11 @@ plt.ylabel('Tempo de Execução (segundos)')
 plt.title('Tempo de Execução do Insertion Sort Otimizado')
 plt.grid(True)
 plt.show()
+
+# Array size: 1000 Execution time: 0.000888 seconds
+# Array size: 5000 Execution time: 0.005494 seconds
+# Array size: 10000 Execution time: 0.020824 seconds
+# Array size: 50000 Execution time: 1.092999 seconds
+# Array size: 100000 Execution time: 4.268157 seconds
+# Array size: 500000 Execution time: 214.056491 seconds
+# Array size: 1000000 Execution time: 866.183492 seconds
